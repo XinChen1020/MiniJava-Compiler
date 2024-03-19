@@ -25,15 +25,14 @@ public class PA4 {
     try {
       
         PA4 t = new PA4(new FileInputStream(args[0]));
-        MethodDeclList n = t.Start();
+        Program n = t.Start();
     
       
 
-/* uncomment this only for PA4a
+
       System.out.println("\n\nPretty Printing the Abstract Syntax Tree");
       Visitor v1 = new AST_Visitor();  // pretty prints the Abstract Syntax Tree
       n.accept(v1, 0);
-*/
 
 /* uncomment this only for PA4b 
       System.out.println("\n\nPretty Print the Program");
@@ -68,11 +67,12 @@ public class PA4 {
 
       //System.out.println("\n\nDone!");
 */
-      /* Only for C2Python_Visitor */
+      /* Only for C2Python_Visitor 
       System.out.println("\n\nPython Print the Program");
       Visitor v2 = new C2Python_Visitor();  // pretty prints the MiniC program
       String s = (String) n.accept(v2, 0);
       System.out.println(s);
+      */
 
     } catch (Exception e) {
       System.out.println("Oops.");
@@ -111,7 +111,7 @@ TOKEN:
 |  <IF:         "if">
 |  <ELSE:       "else">
 |  <WHILE:      "while">
-|  <PRINTLN:    "print">
+|  <PRINTLN:    "System.out.println">
 |  <LENGTH:     "length">
 |  <THIS:       "this">
 |  <NEW:        "new">
@@ -138,6 +138,43 @@ TOKEN:
 }
 
 /* Program Syntax */
+
+
+void Program():
+{}
+{
+
+    MainClass() (ClassDecl())*
+}
+
+void MainClass(int indent):
+{Token t,s;}
+{
+
+    <CLASS> <IDENTIFIER> <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> 
+    <RBRACKET> 
+    <IDENTIFIER> 
+    <RPAREN> <LBRACE> 
+        
+
+    ( LOOKAHEAD(2) VarDecl(indent + 2) )* 
+    ( Stmt(indent + 2) )* 
+    
+    <RBRACE> <RBRACE>
+        {System.out.println("\n  }\n}\n");}
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 MethodDeclList Start():
 {
