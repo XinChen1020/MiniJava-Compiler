@@ -142,87 +142,26 @@ TOKEN:
 
 
 
-MethodDeclList Start():
-{
-  MethodDeclList ms;
-}
-{
-  <PREFACE>
-   ms = MethodDecls()
-  {return ms;}
-  <EOF>
-
-}
-
-
-VarDeclList VarDecls() : 
-{
-  VarDeclList vlist = null;
-  VarDecl v;
-}
-{ 
-  
-    (  LOOKAHEAD(2)  
-       v= VarDecl() 
-       {vlist = new VarDeclList(v,vlist);}
-    )*
-
-    {return(vlist);}
-  
-}
-
-
-VarDecl VarDecl() :
-{
-  Type ty;
-  Token t;
-}
-{ 
-  ty=Type() t=<ID> <SEMICOLON>
-  {return(new VarDecl(ty,new Identifier(t.image)));}
-}
-
-Type Type():
-{}
-{ LOOKAHEAD(2)
-  
-  <BOOLEAN> 
-  {return new BooleanType();}
-  |
-
-  <INT> 
-  {return new IntegerType();}
-  
-}
-
-
 Program Program():
 {
-  MainClass ms;
-  ClassDeclList clist = null;
+  MainClass mc;
+  ClassDeclList c;
 
 }
 {
 
-    ms = MainClass() 
+    mc = MainClass() 
     
-    (
+    cs = ClassDecls() 
 
-      ClassDecl()
+    <EOF>
     
-    )*
-    (  c=MethodDecl() 
-       {clist = new ClassDeclList(c,clist);}
-    )*
-    {return new Program(ms , clist);}
+    
+    {return new Program(mc , cs);}
 }
 
-
-
-
-
-void MainClass():
-{Token t,s;}
+MainClass MainClass():
+{Statement s;}
 {
 
     <CLASS> 
@@ -235,28 +174,46 @@ void MainClass():
     <IDENTIFIER> 
     <RPAREN> <LBRACE> 
 
-    ( LOOKAHEAD(2) VarDecl(indent + 2) )* 
-    ( Stmt(indent + 2) )* 
+    s = Statement()
     
     <RBRACE> <RBRACE>
         
-    
-
-    {return new MainClass(new Identifier(t.image),new Identifier(s.image));}
+    {return new MainClass(new Identifier(t.image), s);}
 
 }
 
+ClassDeclList ClassDecls() : 
+{
+  ClassDeclList clist = null;
+  ClassDecl c;
+}
+{ 
+  (
+    (  c=ClassDecl() 
+       {clist = new ClassDeclList(c,clist);}
+    )*
+  ) 
+  {return clist;}
+}
 
 
+ClassDecl ClassDecl():
+{
+  Token t;
+  VarDeclList vlist;
+  MethodDeclList mlist;
+}
+{
 
+  <CLASS> 
+  t = <IDENTIFIER> 
+  <LBRACE> 
+  vlist = VarDecls()
+  mlist = MethodDecls()
+  <RBRACE>
 
-
-
-
-
-
-
-
+  {return new ClassDecl(new Identifier(t), vlist, mlist);}
+}
 
 
 MethodDeclList MethodDecls() : 
@@ -297,6 +254,64 @@ MethodDecl MethodDecl()  :
 }
 
 
+VarDeclList VarDecls() : 
+{
+  VarDeclList vlist = null;
+  VarDecl v;
+}
+{ 
+  
+    (  LOOKAHEAD(2)  
+       v= VarDecl() 
+       {vlist = new VarDeclList(v,vlist);}
+    )*
+
+    {return(vlist);}
+  
+}
+
+
+VarDecl VarDecl() :
+{
+  Type ty;
+  Token t;
+}
+{ 
+  ty=Type() t=<ID> <SEMICOLON>
+  {return(new VarDecl(ty,new Identifier(t.image)));}
+}
+
+Type Type():
+{
+  Token t;
+}
+{ 
+  
+  LOOKAHEAD(2)
+  
+  <BOOLEAN> 
+  {return new BooleanType();}
+  |
+
+  <INT> 
+  {return new IntegerType();}
+
+  |
+  
+  t = <IDENTIFIER>
+  {return new IdentifierType(new Identifier(t.image));}
+
+  |
+  
+  <INT> <LBRACKET> <RBRACKET>
+  {return new IntArrayType();}
+
+}
+
+
+
+
+
 FormalList FormalList() : 
 {
   FormalList flist=null;
@@ -321,6 +336,7 @@ Formal Formal() :
   {return new Formal(ty,new Identifier(t.image));}
 }
 
+===================================
 
 StatementList Statements() :
 {
