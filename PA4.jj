@@ -165,13 +165,13 @@ MainClass MainClass():
 {
 
     <CLASS> 
-    t = <IDENTIFIER> 
+    t = <ID> 
     
 
     <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> 
     <LPAREN> <STRING> <LBRACKET> 
     <RBRACKET> 
-    <IDENTIFIER> 
+    <ID> 
     <RPAREN> <LBRACE> 
 
     s = Statement()
@@ -206,7 +206,7 @@ ClassDecl ClassDecl():
 {
 
   <CLASS> 
-  t = <IDENTIFIER> 
+  t = <ID>
   <LBRACE> 
   vlist = VarDecls()
   mlist = MethodDecls()
@@ -245,9 +245,9 @@ MethodDecl MethodDecl()  :
   ty=Type() t=<ID> <LPAREN> flist=FormalList() <RPAREN>
 
       <LCURLY>
-           vlist=VarDecls() 
+           vlist = VarDecls() 
            slist = Statements()
-           <RETURN> e=Exp() <SEMICOLON>
+           <RETURN> e = Exp() <SEMICOLON>
       <RCURLY>
   {return new MethodDecl(ty,new Identifier(t.image),flist,vlist,slist,e);}
 
@@ -298,7 +298,7 @@ Type Type():
 
   |
   
-  t = <IDENTIFIER>
+  t = <ID>
   {return new IdentifierType(new Identifier(t.image));}
 
   |
@@ -372,6 +372,15 @@ Statement Statement() :
   |
   LOOKAHEAD(2) t=<ID> <EQUALS> e1=Exp() <SEMICOLON> 
   {return(new Assign(new Identifier(t.image),e1));}
+
+  |
+   <WHILE> <LPAREN> Exp() <RPAREN> Statement()
+
+   {return }
+  |
+
+  <ID> <LBRACKET> Exp()<RBRACKET> <EQUALS> Exp() <SEMICOLON>
+  {}
 
 }
 
