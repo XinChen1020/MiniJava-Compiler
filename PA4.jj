@@ -111,7 +111,7 @@ TOKEN:
 |  <IF:         "if">
 |  <ELSE:       "else">
 |  <WHILE:      "while">
-|  <PRINTLN:    "System.out.println">
+|  <PRINTLN:    "print">
 |  <LENGTH:     "length">
 |  <THIS:       "this">
 |  <NEW:        "new">
@@ -194,6 +194,69 @@ Type Type():
   {return new IntegerType();}
   
 }
+
+
+Program Program():
+{
+  MainClass ms;
+  ClassDeclList clist = null;
+
+}
+{
+
+    ms = MainClass() 
+    
+    (
+
+      ClassDecl()
+    
+    )*
+    (  c=MethodDecl() 
+       {clist = new ClassDeclList(c,clist);}
+    )*
+    {return new Program(ms , clist);}
+}
+
+
+
+
+
+void MainClass():
+{Token t,s;}
+{
+
+    <CLASS> 
+    t = <IDENTIFIER> 
+    
+
+    <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> 
+    <LPAREN> <STRING> <LBRACKET> 
+    <RBRACKET> 
+    <IDENTIFIER> 
+    <RPAREN> <LBRACE> 
+
+    ( LOOKAHEAD(2) VarDecl(indent + 2) )* 
+    ( Stmt(indent + 2) )* 
+    
+    <RBRACE> <RBRACE>
+        
+    
+
+    {return new MainClass(new Identifier(t.image),new Identifier(s.image));}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 MethodDeclList MethodDecls() : 

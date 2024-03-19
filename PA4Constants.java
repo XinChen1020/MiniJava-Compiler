@@ -112,7 +112,7 @@ public interface PA4Constants {
     "\"if\"",
     "\"else\"",
     "\"while\"",
-    "\"System.out.println\"",
+    "\"print\"",
     "\"length\"",
     "\"this\"",
     "\"new\"",
