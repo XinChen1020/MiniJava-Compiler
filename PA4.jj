@@ -25,7 +25,7 @@ public class PA4 {
     try {
       
         PA4 t = new PA4(new FileInputStream(args[0]));
-        Program n = t.Start();
+        MethodDeclList n = t.Start();
     
       
 
@@ -138,40 +138,6 @@ TOKEN:
 }
 
 /* Program Syntax */
-
-
-void Program():
-{}
-{
-
-    MainClass() (ClassDecl())*
-}
-
-void MainClass(int indent):
-{Token t,s;}
-{
-
-    <CLASS> <IDENTIFIER> <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> <LPAREN> <STRING> <LBRACKET> 
-    <RBRACKET> 
-    <IDENTIFIER> 
-    <RPAREN> <LBRACE> 
-        
-
-    ( LOOKAHEAD(2) VarDecl(indent + 2) )* 
-    ( Stmt(indent + 2) )* 
-    
-    <RBRACE> <RBRACE>
-        {System.out.println("\n  }\n}\n");}
-
-}
-
-
-
-
-
-
-
-
 
 
 
