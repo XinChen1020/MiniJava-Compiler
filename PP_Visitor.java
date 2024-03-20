@@ -6,6 +6,14 @@ import syntaxtree.*;
  * The idea is to have each node return its string representation!
 */
 
+
+
+/* 
+ * Video 1: https://brandeis.zoom.us/rec/share/bqNp_Dlf_PztN0WFbvI-6XCPUBPZnNmgHY9fuF7JMicsf5PJru62dqz7yHY_fw-O.lXGsx5cORhzcv4Tz?startTime=1710971369000
+ * Video 2: https://brandeis.zoom.us/rec/share/bqNp_Dlf_PztN0WFbvI-6XCPUBPZnNmgHY9fuF7JMicsf5PJru62dqz7yHY_fw-O.lXGsx5cORhzcv4Tz?startTime=1710971702000
+ * Team: Xin Chen
+*/
+
  public class PP_Visitor implements Visitor
  {
  

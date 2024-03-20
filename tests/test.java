@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <stdbool.h>
-void print(int n){printf("%10d\n",n);}
-class mjPP{
+
+class test{
     public static void main(String[] args){
         System.out.println((new Demo()).go( 10 , 3 ));
 ;
