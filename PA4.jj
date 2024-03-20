@@ -23,11 +23,9 @@ public class PA4 {
   public static void main(String args[]) {
     
     try {
-      
+        
         PA4 t = new PA4(new FileInputStream(args[0]));
-        MethodDeclList n = t.Start();
-    
-      
+        Program n = t.Start();
 
 
       System.out.println("\n\nPretty Printing the Abstract Syntax Tree");
@@ -111,9 +109,10 @@ TOKEN:
 |  <IF:         "if">
 |  <ELSE:       "else">
 |  <WHILE:      "while">
-|  <PRINTLN:    "print">
+|  <PRINTLN:    "System.out.println">
 |  <LENGTH:     "length">
 |  <THIS:       "this">
+|  <MAIN:       "main">
 |  <NEW:        "new">
 |  <BANG:       "!">
 |  <COLON:      ":">
@@ -142,41 +141,43 @@ TOKEN:
 
 
 
-Program Program():
+Program Start():
 {
   MainClass mc;
-  ClassDeclList c;
+  ClassDeclList cl;
 
 }
 {
 
     mc = MainClass() 
     
-    cs = ClassDecls() 
+    cl = ClassDecls() 
 
     <EOF>
     
     
-    {return new Program(mc , cs);}
+    {return new Program(mc , cl);}
 }
 
 MainClass MainClass():
-{Statement s;}
+{
+  Statement s;
+  Token t;}
 {
 
     <CLASS> 
     t = <ID> 
     
 
-    <LBRACE> <PUBLIC> <STATIC> <VOID> <MAIN> 
+    <LCURLY> <PUBLIC> <STATIC> <VOID> <MAIN>
     <LPAREN> <STRING> <LBRACKET> 
     <RBRACKET> 
     <ID> 
-    <RPAREN> <LBRACE> 
+    <RPAREN> <LCURLY> 
 
     s = Statement()
     
-    <RBRACE> <RBRACE>
+    <RCURLY> <RCURLY>
         
     {return new MainClass(new Identifier(t.image), s);}
 
@@ -207,12 +208,12 @@ ClassDecl ClassDecl():
 
   <CLASS> 
   t = <ID>
-  <LBRACE> 
+  <LCURLY> 
   vlist = VarDecls()
   mlist = MethodDecls()
-  <RBRACE>
+  <RCURLY>
 
-  {return new ClassDecl(new Identifier(t), vlist, mlist);}
+  {return new ClassDecl(new Identifier(t.image), vlist, mlist);}
 }
 
 
@@ -242,7 +243,7 @@ MethodDecl MethodDecl()  :
   Exp e;
 }
 {
-  ty=Type() t=<ID> <LPAREN> flist=FormalList() <RPAREN>
+  <PUBLIC> ty=Type() t=<ID> <LPAREN> flist=FormalList() <RPAREN>
 
       <LCURLY>
            vlist = VarDecls() 
@@ -287,24 +288,24 @@ Type Type():
 }
 { 
   
-  LOOKAHEAD(2)
+  
   
   <BOOLEAN> 
   {return new BooleanType();}
   |
+  LOOKAHEAD(2)
+  <INT> <LBRACKET> <RBRACKET>
+  {return new IntArrayType();}
+
+  |
 
   <INT> 
   {return new IntegerType();}
-
   |
   
   t = <ID>
-  {return new IdentifierType(new Identifier(t.image));}
+  {return new IdentifierType(t.image);}
 
-  |
-  
-  <INT> <LBRACKET> <RBRACKET>
-  {return new IntArrayType();}
 
 }
 
@@ -336,7 +337,7 @@ Formal Formal() :
   {return new Formal(ty,new Identifier(t.image));}
 }
 
-===================================
+
 
 StatementList Statements() :
 {
@@ -374,13 +375,13 @@ Statement Statement() :
   {return(new Assign(new Identifier(t.image),e1));}
 
   |
-   <WHILE> <LPAREN> Exp() <RPAREN> Statement()
+   <WHILE> <LPAREN> e1 = Exp() <RPAREN> s1 = Statement()
 
-   {return }
+   {return(new While(e1, s1)); }
   |
 
-  <ID> <LBRACKET> Exp()<RBRACKET> <EQUALS> Exp() <SEMICOLON>
-  {}
+  t = <ID> <LBRACKET> e1 = Exp() <RBRACKET> <EQUALS> e2 = Exp() <SEMICOLON>
+  {return (new ArrayAssign(new Identifier(t.image),e1,e2));}
 
 }
 
@@ -388,12 +389,22 @@ Statement Statement() :
 Exp Exp():
 {Exp a,b;}
 { 
+   a=Exp4() 
+  (LOOKAHEAD(2) <AND> b=Exp4() {a = new And(a,b);})* 
+  {return(a);}
+
+
+
+}
+
+Exp Exp4():
+{Exp a,b;}
+{
   a=Exp9() 
   (LOOKAHEAD(2) <LT> b=Exp9() {a = new LessThan(a,b);})* 
   {return(a);}
 
 }
-
 
 Exp Exp9():
 {Exp a,b;}
@@ -421,20 +432,39 @@ Exp Exp11():
   {return(a);}
 }
 
+
+
 Exp Exp12():
 {Exp a,b; 
  ExpList c;
  Token t;}
 { 
   a=Exp14() 
+
+  (
+    LOOKAHEAD(2)
+      <DOT> <LENGTH> 
+      {return(new ArrayLength(a));} 
+    |         
+      <DOT> t = <ID> <LPAREN> c = ExpList() <RPAREN> 
+      {return(new Call(a,new Identifier(t.image),c));} 
+    |
+      <LBRACKET> b = Exp() <RBRACKET>   
+      {return(new ArrayLookup(a,b));}      
+
+  )?
+
   {return(a);}
 }
 
 Exp Exp14():
 {Exp a,b;}
 {
-  a=Exp16() 
-
+   
+  <BANG> a = Exp16() 
+  {return(new Not(a));}
+  | 
+  a = Exp16()
   {return(a);}
 }
 
@@ -454,11 +484,17 @@ Exp Exp16() :
     <LPAREN> a=Exp() <RPAREN>
   {return(new ExpGroup(a));}
   |
-  LOOKAHEAD(3)
-  t=<ID> <LPAREN> c=ExpList() <RPAREN> 
-  {return new Call(null,new Identifier(t.image),c);}
-  |
   t=<ID>  {return new IdentifierExp(t.image);}
+  |
+  <THIS>
+  {return new This();}
+  |
+  LOOKAHEAD(2)
+  <NEW> <INT> <LBRACKET> a = Exp() <RBRACKET>
+  {return new NewArray(a);}
+  |
+  <NEW> t = <ID> <LPAREN> <RPAREN>
+  {return new NewObject(new Identifier(t.image));}
 
 }
 

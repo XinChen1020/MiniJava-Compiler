@@ -45,47 +45,49 @@ public interface PA4Constants {
   /** RegularExpression Id. */
   int THIS = 22;
   /** RegularExpression Id. */
-  int NEW = 23;
+  int MAIN = 23;
   /** RegularExpression Id. */
-  int BANG = 24;
+  int NEW = 24;
   /** RegularExpression Id. */
-  int COLON = 25;
+  int BANG = 25;
   /** RegularExpression Id. */
-  int SEMICOLON = 26;
+  int COLON = 26;
   /** RegularExpression Id. */
-  int COMMA = 27;
+  int SEMICOLON = 27;
   /** RegularExpression Id. */
-  int DOT = 28;
+  int COMMA = 28;
   /** RegularExpression Id. */
-  int EQUALS = 29;
+  int DOT = 29;
   /** RegularExpression Id. */
-  int AND = 30;
+  int EQUALS = 30;
   /** RegularExpression Id. */
-  int LT = 31;
+  int AND = 31;
   /** RegularExpression Id. */
-  int GT = 32;
+  int LT = 32;
   /** RegularExpression Id. */
-  int LPAREN = 33;
+  int GT = 33;
   /** RegularExpression Id. */
-  int RPAREN = 34;
+  int LPAREN = 34;
   /** RegularExpression Id. */
-  int LBRACKET = 35;
+  int RPAREN = 35;
   /** RegularExpression Id. */
-  int RBRACKET = 36;
+  int LBRACKET = 36;
   /** RegularExpression Id. */
-  int LCURLY = 37;
+  int RBRACKET = 37;
   /** RegularExpression Id. */
-  int RCURLY = 38;
+  int LCURLY = 38;
   /** RegularExpression Id. */
-  int PLUS_OP = 39;
+  int RCURLY = 39;
   /** RegularExpression Id. */
-  int MINUS_OP = 40;
+  int PLUS_OP = 40;
   /** RegularExpression Id. */
-  int TIMES_OP = 41;
+  int MINUS_OP = 41;
   /** RegularExpression Id. */
-  int NUMBER = 42;
+  int TIMES_OP = 42;
   /** RegularExpression Id. */
-  int ID = 43;
+  int NUMBER = 43;
+  /** RegularExpression Id. */
+  int ID = 44;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -112,9 +114,10 @@ public interface PA4Constants {
     "\"if\"",
     "\"else\"",
     "\"while\"",
-    "\"print\"",
+    "\"System.out.println\"",
     "\"length\"",
     "\"this\"",
+    "\"main\"",
     "\"new\"",
     "\"!\"",
     "\":\"",
