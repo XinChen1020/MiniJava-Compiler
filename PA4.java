@@ -12,18 +12,19 @@ public class PA4 implements PA4Constants {
         PA4 t = new PA4(new FileInputStream(args[0]));
         Program n = t.Start();
 
-
+      /*
       System.out.println("\n\nPretty Printing the Abstract Syntax Tree");
       Visitor v1 = new AST_Visitor();  // pretty prints the Abstract Syntax Tree
       n.accept(v1, 0);
+      */
 
-/* uncomment this only for PA4b 
+/* uncomment this only for PA4b */
       System.out.println("\n\nPretty Print the Program");
       Visitor v2 = new PP_Visitor();  // pretty prints the MiniC program
       String s = (String) n.accept(v2, 0);
       System.out.println("#include <stdio.h>\n#include <stdbool.h>\nvoid print(int n){printf(\"%10d\\n\",n);}");
       System.out.println(s);
-*/
+
 
 /* uncomment this only for MiniC2Pascal translator 
       //System.out.println("\n\nPretty Print the Program");
@@ -661,11 +662,6 @@ public class PA4 implements PA4Constants {
     finally { jj_save(8, xla); }
   }
 
-  static private boolean jj_3_1() {
-    if (jj_3R_11()) return true;
-    return false;
-  }
-
   static private boolean jj_3_5() {
     if (jj_scan_token(LT)) return true;
     if (jj_3R_13()) return true;
@@ -867,6 +863,11 @@ public class PA4 implements PA4Constants {
 
   static private boolean jj_3R_13() {
     if (jj_3R_18()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_1() {
+    if (jj_3R_11()) return true;
     return false;
   }
 
