@@ -9,6 +9,14 @@
  * that is <, +,-,*  integerLiterals and IdentifierExpressions
  */
 
+
+ /*
+Video 1: https://brandeis.zoom.us/rec/share/tXjiXi99E29EppXPXkjg-_GbBS2bEX1hIlfQmzDHubxsfvU4SRZtAtfzJrr9qr6D.hJiFx2GHakf4fQIB?startTime=1710909695000
+Video 2https://brandeis.zoom.us/rec/share/tXjiXi99E29EppXPXkjg-_GbBS2bEX1hIlfQmzDHubxsfvU4SRZtAtfzJrr9qr6D.hJiFx2GHakf4fQIB?startTime=1710910230000
+
+Team: Xin Chen
+ */
+
 options {
   IGNORE_CASE=false;
 }
