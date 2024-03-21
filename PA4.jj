@@ -40,14 +40,15 @@ public class PA4 {
       Visitor v1 = new AST_Visitor();  // pretty prints the Abstract Syntax Tree
       n.accept(v1, 0);
       */
+      
 
-/* uncomment this only for PA4b  
+/* uncomment this only for PA4b  */
       System.out.println("\n\nPretty Print the Program");
       Visitor v2 = new PP_Visitor();  // pretty prints the MiniC program
       String s = (String) n.accept(v2, 0);
-      /*System.out.println("#include <stdio.h>\n#include <stdbool.h>\nvoid print(int n){printf(\"%10d\\n\",n);}");*/
+      //System.out.println("#include <stdio.h>\n#include <stdbool.h>\nvoid print(int n){printf(\"%10d\\n\",n);}");
       System.out.println(s);
-*/
+
  
 
 
@@ -66,7 +67,8 @@ public class PA4 {
       SymbolTable st = v3.symbolTable;
       n.accept(v3,"");
       System.out.println(st);
-*/
+      */
+
 
 /* uncomment this only for PA4d 
       System.out.println("\n\nType Checking");
@@ -455,15 +457,16 @@ Exp Exp12():
   (
     LOOKAHEAD(2)
       <DOT> <LENGTH> 
-      {return(new ArrayLength(a));} 
+      {a = new ArrayLength(a);} 
     |         
       <DOT> t = <ID> <LPAREN> c = ExpList() <RPAREN> 
-      {return(new Call(a,new Identifier(t.image),c));} 
+      {System.out.print(t.image + "\n");}
+      {a = new Call(a,new Identifier(t.image),c);} 
     |
       <LBRACKET> b = Exp() <RBRACKET>   
-      {return(new ArrayLookup(a,b));}      
+      {a = new ArrayLookup(a,b);}      
 
-  )?
+  )*
 
   {return(a);}
 }

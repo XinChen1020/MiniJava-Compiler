@@ -7,17 +7,17 @@ class Demo {
 class Debug {
     boolean debugging;
 
-    boolean init(boolean v){
+    public boolean init(boolean v){
         boolean oldVal;
         oldVal=debugging;
         debugging = v;
 
         return oldVal;
     }
-    boolean getDebugging(boolean b){
+    public boolean getDebugging(boolean b){
         return debugging && b;
     }
-    Debug getMe(boolean b){
+    public Debug getMe(boolean b){
         return this;
     }
 }
@@ -27,7 +27,7 @@ class PrintList{
     int[] data;
     int size;
 
-    int[] getData(boolean b){
+    public int[] getData(boolean b){
         int[] z;
         if (b) {
             z= data;
@@ -37,7 +37,7 @@ class PrintList{
         return z;
     }
 
-    int go(int n){
+    public int go(int n){
         int r;
         boolean oldVal;
         int size;
@@ -64,7 +64,7 @@ class PrintList{
         return 10000*n+r+this.getData(true).length;
     }
 
-    int printall(int n){
+    public int printall(int n){
         boolean test;
         int r;
         int sum;
@@ -78,7 +78,7 @@ class PrintList{
             sum = sum + data[n]+r;
         }
         
-        if (test && debugging.getDebugging(true) && !(n<2)) r=r+100; else r=r;
+        if (test && debugging.getDebugging(true) && !(n<2)) {r=r+100;} else {r=r;}
         System.out.println(sum+r);
         return sum+r;
     }
