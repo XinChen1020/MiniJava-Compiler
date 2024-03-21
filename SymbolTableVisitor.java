@@ -83,18 +83,27 @@ public class SymbolTableVisitor implements Visitor {
     Identifier i = node.i;
     VarDeclList v=node.v;
     MethodDeclList m=node.m;
-    node.i.accept(this, data);
-    node.v.accept(this, data);
-    node.m.accept(this, data);
+    String current_class = "$" + (String) i.accept(this, data);
+    
+    node.v.accept(this, current_class);
+    node.m.accept(this, current_class);
+
+    
+    symbolTable.classes.put(current_class , node);
+    symbolTable.typeName.put(current_class, "*class");
 
     return data;
   } 
   
   public Object visit(ClassDeclList node, Object data){ 
     ClassDecl c=node.c;
-    ClassDeclList clist=node.clist;
     node.c.accept(this, data);
-    node.clist.accept(this, data);
+
+    ClassDeclList clist=node.clist;
+
+    if(node.clist != null){
+      node.clist.accept(this, data);
+    }
 
     return data;
   } 
@@ -151,7 +160,7 @@ public class SymbolTableVisitor implements Visitor {
   public Object visit(Identifier node, Object data){ 
       String s=node.s;  
 
-      return data; 
+      return s; 
   }
 
   public Object visit(IdentifierExp node, Object data){ 
@@ -206,8 +215,10 @@ public class SymbolTableVisitor implements Visitor {
       node.i.accept(this, data);
       node.s.accept(this, data);
 
-      symbolTable.mainClassName = "$" + (String) node.i.accept(this, data);
+      symbolTable.mainClassName = "$" + i.accept(this, data);
       symbolTable.mainClass = node;
+
+      symbolTable.typeName.put(symbolTable.mainClassName, "*class");
 
       return data; 
   }
@@ -215,6 +226,7 @@ public class SymbolTableVisitor implements Visitor {
   public Object visit(MethodDecl node, Object data){ 
       Type t=node.t;
       Identifier i=node.i;
+
       FormalList f=node.f;
       VarDeclList v=node.v;
       StatementList s=node.s;
@@ -229,7 +241,7 @@ public class SymbolTableVisitor implements Visitor {
       //node.s.accept(this, data2);
       //node.e.accept(this, data2);
 
-      symbolTable.methods.put(data + "$" + i.s, node);
+      symbolTable.methods.put(data2, node);
       return data; 
   }
 
