@@ -14,6 +14,14 @@ import java.util.HashMap;
  * 
  * The data parameter will be the current prefix, initially the empty string ""
  */
+
+
+
+ /*
+  * Video 1: https://brandeis.zoom.us/rec/share/VMYLOTErzAOIY4EGGfqhFIhld_qVMZm14DR_RI3lIbqh62VuHyHCtphPlG4y6DuV.9GObZ-GVDWv9ugln?startTime=1711000610000
+  * Video 2: https://brandeis.zoom.us/rec/share/VMYLOTErzAOIY4EGGfqhFIhld_qVMZm14DR_RI3lIbqh62VuHyHCtphPlG4y6DuV.9GObZ-GVDWv9ugln?startTime=1711002241000
+  * Team: Xin Chen
+  */
 public class SymbolTableVisitor implements Visitor {
 
   public SymbolTable symbolTable = new SymbolTable();
