@@ -42,7 +42,7 @@ import syntaxtree.*;
 
      return "class " + i + "{\n" +
      indentString(indent+1) + "public static void main(String[] args){\n" +
-     indentString(indent+2) + s + ";\n" +
+     indentString(indent+2) + s + "\n" +
      indentString(indent+1) + "}\n" +
      indentString(indent) + "}\n";
      
@@ -90,7 +90,7 @@ import syntaxtree.*;
         }
         String expr = (String) node.e.accept(this,indent);
         return 
-        indentString(indent)+
+        indentString(indent)+ "public " +
         type+" "+id+"("+formalList+"){\n"+
         varList +
         statementList+

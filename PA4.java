@@ -18,12 +18,13 @@ public class PA4 implements PA4Constants {
       n.accept(v1, 0);
       */
 
-/* uncomment this only for PA4b */
+/* uncomment this only for PA4b  */
       System.out.println("\n\nPretty Print the Program");
       Visitor v2 = new PP_Visitor();  // pretty prints the MiniC program
       String s = (String) n.accept(v2, 0);
-      /*System.out.println("#include <stdio.h>\n#include <stdbool.h>\nvoid print(int n){printf(\"%10d\\n\",n);}");*/
+      System.out.println("#include <stdio.h>\n#include <stdbool.h>\nvoid print(int n){printf(\"%10d\\n\",n);}");
       System.out.println(s);
+
 
 
 /* uncomment this only for MiniC2Pascal translator 
@@ -35,7 +36,7 @@ public class PA4 implements PA4Constants {
       System.out.println("BEGIN\n main(1);\nEND.");
 */
 
-/* uncomment this only for PA4c and PA4d
+/* uncomment this only for PA4c and PA4d 
       System.out.println("\n\nGenerating Symbol Table");
       SymbolTableVisitor v3 = new SymbolTableVisitor(); // generates a SymbolTable
       SymbolTable st = v3.symbolTable;
