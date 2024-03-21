@@ -117,246 +117,246 @@ public class SymbolTableVisitor implements Visitor {
 
   public Object visit(False node, Object data){ 
     return data;
-} 
+  } 
 
-    public Object visit(Formal node, Object data){ 
-        Identifier i=node.i;
-        Type t=node.t;
-        node.i.accept(this, data);
-        node.t.accept(this, data);
-        symbolTable.formals.put(data + "$" + i.s, node);
-        symbolTable.typeName.put(data + "$" + i.s, getTypeName(t));
-
-
-        return data; 
-    }
-
-    public Object visit(FormalList node, Object data){ 
-        Formal f=node.f;
-        FormalList flist=node.flist;
-        node.f.accept(this, data);
-        if (node.flist != null) {
-            node.flist.accept(this, data);
-        }
+  public Object visit(Formal node, Object data){ 
+      Identifier i=node.i;
+      Type t=node.t;
+      node.i.accept(this, data);
+      node.t.accept(this, data);
+      symbolTable.formals.put(data + "$" + i.s, node);
+      symbolTable.typeName.put(data + "$" + i.s, getTypeName(t));
 
 
-        return data; 
-    }
+      return data; 
+  }
 
-    public Object visit(Identifier node, Object data){ 
-        String s=node.s;  
-
-        return data; 
-    }
-
-    public Object visit(IdentifierExp node, Object data){ 
-        String s=node.s;
-
-        return data; 
-    }
-
-    public Object visit(IdentifierType node, Object data){ 
-        String s=node.s;
-
-        return data; 
-    }
-
-    public Object visit(If node, Object data){ 
-        Exp e=node.e;
-        Statement s1=node.s1;
-        Statement s2=node.s2;
-        node.e.accept(this, data);
-        node.s1.accept(this, data);
-        node.s2.accept(this, data);
-
-        return data; 
-    }
-
-    public Object visit(IntArrayType node, Object data){ 
-        return data; 
-    }
-
-    public Object visit(IntegerLiteral node, Object data){ 
-        int i=node.i;
-
-        return data; 
-    }
-
-    public Object visit(IntegerType node, Object data){ 
-        return data; 
-    }
-
-    public Object visit(LessThan node, Object data){ 
-        Exp e1=node.e1;
-        Exp e2=node.e2;
-        node.e1.accept(this, data);
-        node.e2.accept(this, data);
-
-        return data;
-    }
-
-    public Object visit(MainClass node, Object data){ 
-        Identifier i=node.i;
-        Statement s=node.s;
-        node.i.accept(this, data);
-        node.s.accept(this, data);
-
-        return data; 
-    }
-
-    public Object visit(MethodDecl node, Object data){ 
-        Type t=node.t;
-        Identifier i=node.i;
-        FormalList f=node.f;
-        VarDeclList v=node.v;
-        StatementList s=node.s;
-        Exp e=node.e;
-        String data2 = data + "$" + i.s;
-        //node.t.accept(this, data2);
-        //node.i.accept(this, data2);
-        node.f.accept(this, data2);
-        if (node.v != null) {
-            node.v.accept(this, data2);
-        }
-        //node.s.accept(this, data2);
-        //node.e.accept(this, data2);
-
-        symbolTable.methods.put(data + "$" + i.s, node);
-        return data; 
-    }
-
-
-    public Object visit(MethodDeclList node, Object data){ 
-        MethodDecl m=node.m;
-        MethodDeclList mlist=node.mlist;
-        node.m.accept(this, data);
-        if (node.mlist != null) {
-            node.mlist.accept(this, data);
-        }
-
-        return data; 
-    }   
-
-
-    public Object visit(Minus node, Object data){ 
-        Exp e1=node.e1;
-        Exp e2=node.e2;
-        node.e1.accept(this, data);
-        node.e2.accept(this, data);
-
-        return data; 
-    }
-
-    public Object visit(NewArray node, Object data){ 
-        Exp e=node.e;
-        node.e.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(NewObject node, Object data){ 
-        Identifier i=node.i;
-        node.i.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(Not node, Object data){ 
-        Exp e=node.e;
-        node.e.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(Plus node, Object data){ 
-        Exp e1=node.e1;
-        Exp e2=node.e2;
-        node.e1.accept(this, data);
-        node.e2.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(Print node, Object data){ 
-        Exp e=node.e;
-        node.e.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(Program node, Object data){ 
-        MainClass m=node.m;
-        ClassDeclList c=node.c;
-        node.m.accept(this, data);
-        node.c.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(StatementList node, Object data){ 
-        Statement s=node.s;
-        StatementList slist=node.slist;
-        node.s.accept(this, data);
-        node.slist.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(This node, Object data){ 
-        return data; 
-    }
-
-
-
-    public Object visit(Times node, Object data){ 
-        Exp e1=node.e1;
-        Exp e2=node.e2;
-        node.e1.accept(this, data);
-        node.e2.accept(this, data);
-
-        return data; 
-    }
-
-
-    public Object visit(True node, Object data){ 
-        return data; 
-    }
-
-    public static String getTypeName(Object node){
-      if (node instanceof IdentifierType){
-        return ((IdentifierType) node).s;
+  public Object visit(FormalList node, Object data){ 
+      Formal f=node.f;
+      FormalList flist=node.flist;
+      node.f.accept(this, data);
+      if (node.flist != null) {
+          node.flist.accept(this, data);
       }
-      else if (node instanceof IntegerType){
-        return "int";
-      }
-      else if (node instanceof BooleanType){
-        return "boolean";
-      }
-      else if (node instanceof IntArrayType){
-        return "int[]";
-      }
-      else {
-        return "void";
-      }
-    }
 
-    public Object visit(VarDecl node, Object data){ 
-        Type t=node.t;
-        Identifier i=node.i;
-        node.t.accept(this, data);
-        node.i.accept(this, data);
-        symbolTable.variables.put(data + "$" + i.s, node);
-        symbolTable.typeName.put(data + "$" + i.s, getTypeName(t));
 
-        return data;
+      return data; 
+  }
+
+  public Object visit(Identifier node, Object data){ 
+      String s=node.s;  
+
+      return data; 
+  }
+
+  public Object visit(IdentifierExp node, Object data){ 
+      String s=node.s;
+
+      return data; 
+  }
+
+  public Object visit(IdentifierType node, Object data){ 
+      String s=node.s;
+
+      return data; 
+  }
+
+  public Object visit(If node, Object data){ 
+      Exp e=node.e;
+      Statement s1=node.s1;
+      Statement s2=node.s2;
+      node.e.accept(this, data);
+      node.s1.accept(this, data);
+      node.s2.accept(this, data);
+
+      return data; 
+  }
+
+  public Object visit(IntArrayType node, Object data){ 
+      return data; 
+  }
+
+  public Object visit(IntegerLiteral node, Object data){ 
+      int i=node.i;
+
+      return data; 
+  }
+
+  public Object visit(IntegerType node, Object data){ 
+      return data; 
+  }
+
+  public Object visit(LessThan node, Object data){ 
+      Exp e1=node.e1;
+      Exp e2=node.e2;
+      node.e1.accept(this, data);
+      node.e2.accept(this, data);
+
+      return data;
+  }
+
+  public Object visit(MainClass node, Object data){ 
+      Identifier i=node.i;
+      Statement s=node.s;
+      node.i.accept(this, data);
+      node.s.accept(this, data);
+
+      return data; 
+  }
+
+  public Object visit(MethodDecl node, Object data){ 
+      Type t=node.t;
+      Identifier i=node.i;
+      FormalList f=node.f;
+      VarDeclList v=node.v;
+      StatementList s=node.s;
+      Exp e=node.e;
+      String data2 = data + "$" + i.s;
+      //node.t.accept(this, data2);
+      //node.i.accept(this, data2);
+      node.f.accept(this, data2);
+      if (node.v != null) {
+          node.v.accept(this, data2);
+      }
+      //node.s.accept(this, data2);
+      //node.e.accept(this, data2);
+
+      symbolTable.methods.put(data + "$" + i.s, node);
+      return data; 
+  }
+
+
+  public Object visit(MethodDeclList node, Object data){ 
+      MethodDecl m=node.m;
+      MethodDeclList mlist=node.mlist;
+      node.m.accept(this, data);
+      if (node.mlist != null) {
+          node.mlist.accept(this, data);
+      }
+
+      return data; 
+  }   
+
+
+  public Object visit(Minus node, Object data){ 
+      Exp e1=node.e1;
+      Exp e2=node.e2;
+      node.e1.accept(this, data);
+      node.e2.accept(this, data);
+
+      return data; 
+  }
+
+  public Object visit(NewArray node, Object data){ 
+      Exp e=node.e;
+      node.e.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(NewObject node, Object data){ 
+      Identifier i=node.i;
+      node.i.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(Not node, Object data){ 
+      Exp e=node.e;
+      node.e.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(Plus node, Object data){ 
+      Exp e1=node.e1;
+      Exp e2=node.e2;
+      node.e1.accept(this, data);
+      node.e2.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(Print node, Object data){ 
+      Exp e=node.e;
+      node.e.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(Program node, Object data){ 
+      MainClass m=node.m;
+      ClassDeclList c=node.c;
+      node.m.accept(this, data);
+      node.c.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(StatementList node, Object data){ 
+      Statement s=node.s;
+      StatementList slist=node.slist;
+      node.s.accept(this, data);
+      node.slist.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(This node, Object data){ 
+      return data; 
+  }
+
+
+
+  public Object visit(Times node, Object data){ 
+      Exp e1=node.e1;
+      Exp e2=node.e2;
+      node.e1.accept(this, data);
+      node.e2.accept(this, data);
+
+      return data; 
+  }
+
+
+  public Object visit(True node, Object data){ 
+      return data; 
+  }
+
+  public static String getTypeName(Object node){
+    if (node instanceof IdentifierType){
+      return ((IdentifierType) node).s;
     }
+    else if (node instanceof IntegerType){
+      return "int";
+    }
+    else if (node instanceof BooleanType){
+      return "boolean";
+    }
+    else if (node instanceof IntArrayType){
+      return "int[]";
+    }
+    else {
+      return "void";
+    }
+  }
+
+  public Object visit(VarDecl node, Object data){ 
+      Type t=node.t;
+      Identifier i=node.i;
+      node.t.accept(this, data);
+      node.i.accept(this, data);
+      symbolTable.variables.put(data + "$" + i.s, node);
+      symbolTable.typeName.put(data + "$" + i.s, getTypeName(t));
+
+      return data;
+  }
 
 
   public Object visit(VarDeclList node, Object data){ 

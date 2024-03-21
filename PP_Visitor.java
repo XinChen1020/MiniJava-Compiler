@@ -9,7 +9,7 @@ import syntaxtree.*;
 
 
 /* 
- * Video 1: https://brandeis.zoom.us/rec/share/bqNp_Dlf_PztN0WFbvI-6XCPUBPZnNmgHY9fuF7JMicsf5PJru62dqz7yHY_fw-O.lXGsx5cORhzcv4Tz?startTime=1710971369000
+ * Video 1: https://brandeis.zoom.us/rec/share/1MhxpqLQM9OeNTOUnk6lNUReAgUGw0aMtWXXXoq9lN1VzqE1bYo8rIo-J2LGv4wZ.pbfOxx1qH-WXYhH8?startTime=1710985894000
  * Video 2: https://brandeis.zoom.us/rec/share/bqNp_Dlf_PztN0WFbvI-6XCPUBPZnNmgHY9fuF7JMicsf5PJru62dqz7yHY_fw-O.lXGsx5cORhzcv4Tz?startTime=1710971702000
  * Team: Xin Chen
 */
