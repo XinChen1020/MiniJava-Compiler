@@ -39,10 +39,18 @@ public class PA4 implements PA4Constants {
       System.out.println("BEGIN\n main(1);\nEND.");
 */
 
-/* uncomment this only for PA4c and PA4d */
+/* uncomment this only for PA4c and PA4d 
       System.out.println("\n\nGenerating Symbol Table");
       SymbolTableVisitor v3 = new SymbolTableVisitor(); // generates a SymbolTable
       SymbolTable st = v3.symbolTable;
+      n.accept(v3,"");
+      System.out.println(st);
+      */
+
+      /* uncomment this only for PA4c and PA4d */
+      System.out.println("\n\nGenerating Symbol Table");
+      SymbolTableVisitorModified v3 = new SymbolTableVisitorModified(); // generates a SymbolTable
+      SymbolTableModified st = v3.symbolTable;
       n.accept(v3,"");
       System.out.println(st);
 
@@ -55,7 +63,8 @@ public class PA4 implements PA4Constants {
       System.out.println(v4.num_errors+" type errors found");
 
       //System.out.println("\n\nDone!");
-*/
+      */
+
       /* Only for C2Python_Visitor 
       System.out.println("\n\nPython Print the Program");
       Visitor v2 = new C2Python_Visitor();  // pretty prints the MiniC program
@@ -671,39 +680,6 @@ public class PA4 implements PA4Constants {
     finally { jj_save(8, xla); }
   }
 
-  static private boolean jj_3_5() {
-    if (jj_scan_token(LT)) return true;
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_13() {
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_33() {
-    if (jj_scan_token(NEW)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_23() {
-    if (jj_scan_token(ID)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_8() {
-    if (jj_scan_token(DOT)) return true;
-    if (jj_scan_token(LENGTH)) return true;
-    return false;
-  }
-
-  static private boolean jj_3_9() {
-    if (jj_scan_token(NEW)) return true;
-    if (jj_scan_token(INT)) return true;
-    return false;
-  }
-
   static private boolean jj_3R_22() {
     if (jj_scan_token(INT)) return true;
     return false;
@@ -877,6 +853,39 @@ public class PA4 implements PA4Constants {
 
   static private boolean jj_3_1() {
     if (jj_3R_12()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_5() {
+    if (jj_scan_token(LT)) return true;
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_13() {
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_33() {
+    if (jj_scan_token(NEW)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_23() {
+    if (jj_scan_token(ID)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_8() {
+    if (jj_scan_token(DOT)) return true;
+    if (jj_scan_token(LENGTH)) return true;
+    return false;
+  }
+
+  static private boolean jj_3_9() {
+    if (jj_scan_token(NEW)) return true;
+    if (jj_scan_token(INT)) return true;
     return false;
   }
 

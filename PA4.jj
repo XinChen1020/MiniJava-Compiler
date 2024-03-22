@@ -62,10 +62,18 @@ public class PA4 {
       System.out.println("BEGIN\n main(1);\nEND.");
 */
 
-/* uncomment this only for PA4c and PA4d */
+/* uncomment this only for PA4c and PA4d 
       System.out.println("\n\nGenerating Symbol Table");
       SymbolTableVisitor v3 = new SymbolTableVisitor(); // generates a SymbolTable
       SymbolTable st = v3.symbolTable;
+      n.accept(v3,"");
+      System.out.println(st);
+      */
+
+      /* uncomment this only for PA4c and PA4d */
+      System.out.println("\n\nGenerating Symbol Table");
+      SymbolTableVisitorModified v3 = new SymbolTableVisitorModified(); // generates a SymbolTable
+      SymbolTableModified st = v3.symbolTable;
       n.accept(v3,"");
       System.out.println(st);
       
@@ -78,7 +86,8 @@ public class PA4 {
       System.out.println(v4.num_errors+" type errors found");
 
       //System.out.println("\n\nDone!");
-*/
+      */
+
       /* Only for C2Python_Visitor 
       System.out.println("\n\nPython Print the Program");
       Visitor v2 = new C2Python_Visitor();  // pretty prints the MiniC program
