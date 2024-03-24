@@ -79,14 +79,14 @@ public class PA4 {
       
 
 
-/* uncomment this only for PA4d 
+/* uncomment this only for PA4d */
       System.out.println("\n\nType Checking");
       TypeCheckingVisitor v4 = new TypeCheckingVisitor(st);
       n.accept(v4,"");
       System.out.println(v4.num_errors+" type errors found");
 
       //System.out.println("\n\nDone!");
-      */
+      
 
       /* Only for C2Python_Visitor 
       System.out.println("\n\nPython Print the Program");
@@ -126,7 +126,7 @@ TOKEN:
 |  <EXTENDS:    "extends">
 |  <RETURN:     "return">
 |  <INT:        "int">
-|  <BOOLEAN:    "bool">
+|  <BOOLEAN:    "boolean">
 |  <TRUE:       "true">
 |  <FALSE:      "false">
 |  <IF:         "if">
