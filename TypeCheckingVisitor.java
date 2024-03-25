@@ -17,6 +17,13 @@ import java.util.HashMap;
  * The visit methods will return the type of the node as a string
  * and will use "*void"  for statements and nodes that don't have a type
  */
+
+
+ /*
+  * Video 1:https://brandeis.zoom.us/rec/share/H5qY_cVuTlH2FQoRPFJ15Xx_k5D6qJMurU1chXfksARoIf9Ms31Vb-RGGHe9Asji.M4vLe79OLPboS6P0?startTime=1711384592000
+  * Video 2:https://brandeis.zoom.us/rec/share/H5qY_cVuTlH2FQoRPFJ15Xx_k5D6qJMurU1chXfksARoIf9Ms31Vb-RGGHe9Asji.M4vLe79OLPboS6P0?startTime=1711376496000
+  * Team: Xin Chen
+  */
 public class TypeCheckingVisitor implements Visitor {
 
     public static SymbolTableModified st;
