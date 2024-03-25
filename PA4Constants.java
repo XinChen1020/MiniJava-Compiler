@@ -108,7 +108,7 @@ public interface PA4Constants {
     "\"extends\"",
     "\"return\"",
     "\"int\"",
-    "\"bool\"",
+    "\"boolean\"",
     "\"true\"",
     "\"false\"",
     "\"if\"",

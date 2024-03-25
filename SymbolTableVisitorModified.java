@@ -244,6 +244,7 @@ public class SymbolTableVisitorModified implements Visitor {
       Exp e=node.e;
       String data2 = data + "$" + i.s;
       
+      
       //node.t.accept(this, data2);
       //node.i.accept(this, data2);
       String parameter_list = (String) node.f.accept(this, data2);
@@ -252,7 +253,7 @@ public class SymbolTableVisitorModified implements Visitor {
       }
       //node.s.accept(this, data2);
       //node.e.accept(this, data2);
-      symbolTable.methods.put(data2, parameter_list);
+      symbolTable.methods.put(data2,  getTypeName(t) +" " +  parameter_list);
       
       return data; 
   }
