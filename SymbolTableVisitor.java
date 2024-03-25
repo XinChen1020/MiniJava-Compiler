@@ -95,8 +95,14 @@ public class SymbolTableVisitor implements Visitor {
     MethodDeclList m=node.m;
     String current_class = "$" + (String) i.accept(this, data);
     
-    node.v.accept(this, current_class);
-    node.m.accept(this, current_class);
+
+    if(node.v != null){
+      node.v.accept(this, data);
+    }
+
+    if(node.m != null){
+      node.m.accept(this, data);
+    }
 
     
     symbolTable.classes.put(current_class , node);

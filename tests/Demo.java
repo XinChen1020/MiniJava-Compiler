@@ -1,6 +1,6 @@
 class Demo {
     public static void main(String[] args){
-        System.out.println((new PrintList()).go(5));
+        System.out.println((new p()).go(true));
     }
 }
 
@@ -12,10 +12,10 @@ class Debug {
         oldVal=debugging;
         debugging = v;
 
-        return oldVal;
+        return 0;
     }
     public boolean getDebugging(boolean b){
-        return debugging && b;
+        return debugging && 0;
     }
     public Debug getMe(boolean b){
         return this;
@@ -32,7 +32,7 @@ class PrintList{
         if (b) {
             z= data;
         } else {
-            z = new int[0];
+            z = new int[2];
         }
         return z;
     }
@@ -49,14 +49,14 @@ class PrintList{
         size=5;
         sum=0;
         data = new int[size];
-        data[0]=0;
+        data[0]=true;
         data[1]=11;
         data[2]=222;
         data[3]=3333;
         data[4]=44444;
         r = this.printall(n-1);
         i=0;
-        while (i<n){
+        while (2){
             sum = sum+data[i];
             i = i+1;
             System.out.println(sum);
@@ -70,12 +70,15 @@ class PrintList{
         int sum;
         test = (debugging.getMe(true)).getDebugging(true);
         sum=10;
-        if (n<0) {
+        if (2) {
             r=0;
         } else {
             System.out.println(data[n]);
             r=this.printall(n-1);
-            sum = sum + data[n]+r;
+            sum = sum < true+r;
+            sum = sum + true+r;
+            sum = sum - true+r;
+
         }
         
         if (test && debugging.getDebugging(true) && !(n<2)) {r=r+100;} else {r=r;}

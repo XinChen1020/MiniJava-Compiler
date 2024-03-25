@@ -95,10 +95,14 @@ public class SymbolTableVisitorModified implements Visitor {
     VarDeclList v=node.v;
     MethodDeclList m=node.m;
     String current_class = "$" + (String) i.accept(this, data);
-    
-    node.v.accept(this, current_class);
-    node.m.accept(this, current_class);
 
+    if(v != null){
+      v.accept(this, current_class);
+    }
+
+    if(m != null){
+      m.accept(this, current_class);
+    }
     
     symbolTable.classes.put(current_class , node);
     symbolTable.typeName.put(current_class, "*class");

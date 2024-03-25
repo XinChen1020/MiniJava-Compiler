@@ -221,6 +221,7 @@ public class TypeCheckingVisitor implements Visitor {
         if (node.v != null){
             node.v.accept(this, data);
         }
+        
         if (node.m != null){
             node.m.accept(this, "$" + i.s);
         }
@@ -461,7 +462,7 @@ public class TypeCheckingVisitor implements Visitor {
 
         if (!returnType.equals(getTypeName(node.t))) {
             System.out.println("Method Return Type error: " + returnType + " != " + getTypeName(node.t)+" in method "+i.s);
-            System.out.print("in" + node.accept(miniJava, 0));
+            System.out.print("in " + node.accept(miniJava, 0));
             num_errors++;
         }
 
@@ -488,6 +489,7 @@ public class TypeCheckingVisitor implements Visitor {
         String t2 = (String) node.e2.accept(this, data);
         if (!t1.equals("int") || !t2.equals("int")) {
             System.out.println("Type error: " + t1 + " != " + t2+" in node"+node);
+            System.out.println("in " + node.accept(miniJava, 0));
             num_errors++;
         }
 
@@ -546,8 +548,8 @@ public class TypeCheckingVisitor implements Visitor {
         String t2 = (String) node.e2.accept(this, data);
  
         if (!t1.equals("int") || !t2.equals("int")) {
-            System.out.println("Type error: " + t1 + " != " + t2+" in node"+node);
-            System.out.print("in " + node.accept(miniJava, 0));
+            System.out.println("Type error: " + e1.accept(miniJava, 0) + " or " + e2.accept(miniJava, 0) +" != int in node"+node);
+            System.out.println("in " + node.accept(miniJava, 0));
             num_errors++;  
         }
 
@@ -561,7 +563,7 @@ public class TypeCheckingVisitor implements Visitor {
 
         if (!t1.equals("int")&&!t1.equals("boolean")&&!t1.equals("int[]")) {
             System.out.println("Print Type error: " + t1 + " is not a valid type for print");
-            System.out.print("in " + node.accept(miniJava, 0));
+            System.out.println("in " + node.accept(miniJava, 0));
             num_errors++;
         }
 
