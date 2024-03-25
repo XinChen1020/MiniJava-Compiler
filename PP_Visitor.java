@@ -239,9 +239,13 @@ import syntaxtree.*;
         int indent = (int) data; 
         String e1 = (String) node.e1.accept(this,indent);
         String i = (String) node.i.accept(this,indent);
-        String e2 = (String) node.e2.accept(this,indent);
+        if (node.e2 != null){
+          String e2 = (String) node.e2.accept(this,indent);
+          return e1 + "." + i +"("+e2+")";
+        }
+        
 
-        return e1 + "." + i +"("+e2+")";
+        return e1 + "." + i +"()";
    }
    public Object visit(IntegerLiteral node, Object data){
         int indent = (int) data; 

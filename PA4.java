@@ -56,14 +56,14 @@ public class PA4 implements PA4Constants {
 
 
 
-/* uncomment this only for PA4d 
+/* uncomment this only for PA4d */
       System.out.println("\n\nType Checking");
       TypeCheckingVisitor v4 = new TypeCheckingVisitor(st);
       n.accept(v4,"");
       System.out.println(v4.num_errors+" type errors found");
 
       //System.out.println("\n\nDone!");
-      */
+
 
       /* Only for C2Python_Visitor 
       System.out.println("\n\nPython Print the Program");
@@ -171,7 +171,7 @@ public class PA4 implements PA4Constants {
   static final public MethodDecl MethodDecl() throws ParseException {
   Type ty;
   Token t;
-  FormalList flist;
+  FormalList flist = null;
   VarDeclList vlist;
   StatementList slist;
   Exp e;
@@ -179,7 +179,16 @@ public class PA4 implements PA4Constants {
     ty = Type();
     t = jj_consume_token(ID);
     jj_consume_token(LPAREN);
-    flist = FormalList();
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case INT:
+    case BOOLEAN:
+    case ID:
+      flist = FormalList();
+      break;
+    default:
+      jj_la1[2] = jj_gen;
+      ;
+    }
     jj_consume_token(RPAREN);
     jj_consume_token(LCURLY);
     vlist = VarDecls();
@@ -227,7 +236,7 @@ public class PA4 implements PA4Constants {
    {if (true) return new BooleanType();}
       break;
     default:
-      jj_la1[2] = jj_gen;
+      jj_la1[3] = jj_gen;
       if (jj_2_2(2)) {
         jj_consume_token(INT);
         jj_consume_token(LBRACKET);
@@ -244,7 +253,7 @@ public class PA4 implements PA4Constants {
    {if (true) return new IdentifierType(t.image);}
           break;
         default:
-          jj_la1[3] = jj_gen;
+          jj_la1[4] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -265,7 +274,7 @@ public class PA4 implements PA4Constants {
         ;
         break;
       default:
-        jj_la1[4] = jj_gen;
+        jj_la1[5] = jj_gen;
         break label_4;
       }
       jj_consume_token(COMMA);
@@ -299,7 +308,7 @@ public class PA4 implements PA4Constants {
         ;
         break;
       default:
-        jj_la1[5] = jj_gen;
+        jj_la1[6] = jj_gen;
         break label_5;
       }
       s = Statement();
@@ -340,7 +349,7 @@ public class PA4 implements PA4Constants {
    {if (true) return(new Print(e1));}
       break;
     default:
-      jj_la1[6] = jj_gen;
+      jj_la1[7] = jj_gen;
       if (jj_2_3(2)) {
         t = jj_consume_token(ID);
         jj_consume_token(EQUALS);
@@ -368,7 +377,7 @@ public class PA4 implements PA4Constants {
    {if (true) return (new ArrayAssign(new Identifier(t.image),e1,e2));}
           break;
         default:
-          jj_la1[7] = jj_gen;
+          jj_la1[8] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -435,7 +444,7 @@ public class PA4 implements PA4Constants {
                        a = new Minus(a,b);
         break;
       default:
-        jj_la1[8] = jj_gen;
+        jj_la1[9] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -464,7 +473,7 @@ public class PA4 implements PA4Constants {
 
   static final public Exp Exp12() throws ParseException {
  Exp a,b;
- ExpList c;
+ ExpList c = null;
  Token t;
     a = Exp14();
     label_10:
@@ -475,7 +484,7 @@ public class PA4 implements PA4Constants {
         ;
         break;
       default:
-        jj_la1[9] = jj_gen;
+        jj_la1[10] = jj_gen;
         break label_10;
       }
       if (jj_2_8(2)) {
@@ -488,7 +497,21 @@ public class PA4 implements PA4Constants {
           jj_consume_token(DOT);
           t = jj_consume_token(ID);
           jj_consume_token(LPAREN);
-          c = ExpList();
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case TRUE:
+          case FALSE:
+          case THIS:
+          case NEW:
+          case BANG:
+          case LPAREN:
+          case NUMBER:
+          case ID:
+            c = ExpList();
+            break;
+          default:
+            jj_la1[11] = jj_gen;
+            ;
+          }
           jj_consume_token(RPAREN);
        a = new Call(a,new Identifier(t.image),c);
           break;
@@ -499,7 +522,7 @@ public class PA4 implements PA4Constants {
        a = new ArrayLookup(a,b);
           break;
         default:
-          jj_la1[10] = jj_gen;
+          jj_la1[12] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -528,7 +551,7 @@ public class PA4 implements PA4Constants {
    {if (true) return(a);}
       break;
     default:
-      jj_la1[11] = jj_gen;
+      jj_la1[13] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -567,7 +590,7 @@ public class PA4 implements PA4Constants {
    {if (true) return new This();}
       break;
     default:
-      jj_la1[12] = jj_gen;
+      jj_la1[14] = jj_gen;
       if (jj_2_9(2)) {
         jj_consume_token(NEW);
         jj_consume_token(INT);
@@ -585,7 +608,7 @@ public class PA4 implements PA4Constants {
    {if (true) return new NewObject(new Identifier(t.image));}
           break;
         default:
-          jj_la1[13] = jj_gen;
+          jj_la1[15] = jj_gen;
           jj_consume_token(-1);
           throw new ParseException();
         }
@@ -606,7 +629,7 @@ public class PA4 implements PA4Constants {
         ;
         break;
       default:
-        jj_la1[14] = jj_gen;
+        jj_la1[16] = jj_gen;
         break label_11;
       }
       jj_consume_token(COMMA);
@@ -904,7 +927,7 @@ public class PA4 implements PA4Constants {
   static private boolean jj_lookingAhead = false;
   static private boolean jj_semLA;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[15];
+  static final private int[] jj_la1 = new int[17];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -912,10 +935,10 @@ public class PA4 implements PA4Constants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x80,0x20,0x4000,0x2000,0x10000000,0x1a0000,0x120000,0x80000,0x0,0x20000000,0x20000000,0x3418000,0x418000,0x1000000,0x10000000,};
+      jj_la1_0 = new int[] {0x80,0x20,0x6000,0x4000,0x2000,0x10000000,0x1a0000,0x120000,0x80000,0x0,0x20000000,0x3418000,0x20000000,0x3418000,0x418000,0x1000000,0x10000000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x1000,0x0,0x1040,0x40,0x1000,0x300,0x10,0x10,0x1804,0x1804,0x0,0x0,};
+      jj_la1_1 = new int[] {0x0,0x0,0x1000,0x0,0x1000,0x0,0x1040,0x40,0x1000,0x300,0x10,0x1804,0x10,0x1804,0x1804,0x0,0x0,};
    }
   static final private JJCalls[] jj_2_rtns = new JJCalls[9];
   static private boolean jj_rescan = false;
@@ -939,7 +962,7 @@ public class PA4 implements PA4Constants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -954,7 +977,7 @@ public class PA4 implements PA4Constants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -972,7 +995,7 @@ public class PA4 implements PA4Constants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -983,7 +1006,7 @@ public class PA4 implements PA4Constants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1000,7 +1023,7 @@ public class PA4 implements PA4Constants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1010,7 +1033,7 @@ public class PA4 implements PA4Constants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 15; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 17; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1130,7 +1153,7 @@ public class PA4 implements PA4Constants {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < 17; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

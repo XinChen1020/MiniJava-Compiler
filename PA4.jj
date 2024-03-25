@@ -260,13 +260,13 @@ MethodDecl MethodDecl()  :
 {
   Type ty;
   Token t;
-  FormalList flist;
+  FormalList flist = null;
   VarDeclList vlist;
   StatementList slist;
   Exp e;
 }
 {
-  <PUBLIC> ty=Type() t=<ID> <LPAREN> flist=FormalList() <RPAREN>
+  <PUBLIC> ty=Type() t=<ID> <LPAREN> (flist=FormalList())? <RPAREN>
 
       <LCURLY>
            vlist = VarDecls() 
@@ -459,7 +459,7 @@ Exp Exp11():
 
 Exp Exp12():
 {Exp a,b; 
- ExpList c;
+ ExpList c = null;
  Token t;}
 { 
   a=Exp14() 
@@ -469,7 +469,7 @@ Exp Exp12():
       <DOT> <LENGTH> 
       {a = new ArrayLength(a);} 
     |         
-      <DOT> t = <ID> <LPAREN> c = ExpList() <RPAREN> 
+      <DOT> t = <ID> <LPAREN> (c = ExpList())? <RPAREN> 
       {a = new Call(a,new Identifier(t.image),c);} 
     |
       <LBRACKET> b = Exp() <RBRACKET>   

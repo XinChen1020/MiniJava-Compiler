@@ -82,7 +82,9 @@ public class SymbolTableVisitor implements Visitor {
     ExpList e2=node.e2;
     node.e1.accept(this, data);
     node.i.accept(this, data);
-    node.e2.accept(this, data);
+    if(e2 != null){
+      node.e2.accept(this, data);
+    }
 
     return data;
   } 
@@ -242,7 +244,10 @@ public class SymbolTableVisitor implements Visitor {
       String data2 = data + "$" + i.s;
       //node.t.accept(this, data2);
       //node.i.accept(this, data2);
-      node.f.accept(this, data2);
+      
+      if (node.f != null) {
+        node.f.accept(this, data2);
+    }
       if (node.v != null) {
           node.v.accept(this, data2);
       }

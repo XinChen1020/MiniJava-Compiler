@@ -80,13 +80,48 @@ public class TypeCheckingVisitor implements Visitor {
         node.e1.accept(this, data);
         node.e2.accept(this, data);
 
+        String result = st.typeName.get(data+"$"+i.s);
+        String location = (String) data;
+
+        if(result == null ||!result.equals("int[]") ){
+            
+            result =  st.typeName.get("$" + location.split("\\$")[1]+"$"+i.s);
+            
+            if(result == null || !result.equals("int[]") ){
+                System.out.println("Identifier error: " + i.s + " does not exist as an int[]");
+                System.out.println("in " + node.accept(miniJava,0));
+                num_errors ++;
+                
+            }
+        }
+
+        if (!e1.accept(this, data).equals("int")) {
+  
+            System.out.println("Type error: " + e1 + " != int in node"+node);
+            System.out.println("in "+node.accept(miniJava,0));
+            num_errors++;
+        } 
+
+        if (!e2.accept(this, data).equals("int")) {
+  
+            System.out.println("Type error: " + e2 + " != int in node"+node);
+            System.out.println("in "+node.accept(miniJava,0));
+            num_errors++;
+        } 
+
         return "*void";
     } 
 
     public Object visit(ArrayLength node, Object data){ 
         // not in miniJava
         Exp e=node.e;
-        node.e.accept(this, data);
+       
+        if (!e.accept(this, data).equals("int[]")) {
+            System.out.println("Type error: " + e + " != " + "int[]"+" in node"+node);
+            System.out.println("in "+node.accept(miniJava,0));
+            num_errors ++;
+        }
+
         return "int"; 
     } 
 
@@ -138,7 +173,6 @@ public class TypeCheckingVisitor implements Visitor {
         Identifier i = node.i;
         ExpList e2=node.e2;
 
- 
         String class_name = (String) e1.accept(this, data);
 
         // check that the method exists
@@ -166,7 +200,7 @@ public class TypeCheckingVisitor implements Visitor {
         if (node.e2 != null){
             argTypes = ((String) node.e2.accept(this, data)).trim();
         }
-
+        
 
         if (!paramTypes.equals(argTypes)) {
             System.out.println("Call Type error: " + paramTypes + " != " + argTypes+" in method "+i.s);
@@ -244,7 +278,7 @@ public class TypeCheckingVisitor implements Visitor {
         } else if (node.t instanceof IdentifierType) {
 
             if (st.classes.get("$" + ((IdentifierType) node.t).s.toString()) == null){
-                System.out.println("Formal Type error: " + node.t + " is not a valid type");
+                System.out.println("Identifier Type error: " + node.t + " is not a valid type");
                 System.out.println("in "+node.accept(miniJava,0));
                 num_errors++;
                 return "*void";
@@ -281,7 +315,9 @@ public class TypeCheckingVisitor implements Visitor {
             result =  st.typeName.get("$" + location.split("\\$")[1]+"$"+s);
             
             if(result == null){
-                
+                System.out.println("Identifier error: " + s + " does not exist");
+                System.out.println("in " + node.accept(miniJava,0));
+                num_errors ++;
                 return "*void";
             }
         }
@@ -302,8 +338,11 @@ public class TypeCheckingVisitor implements Visitor {
             result =  st.typeName.get("$" + location.split("\\$")[1]+"$"+s);
             
             if(result == null){
-                
+                System.out.println("Identifier error: " + s + " does not exist");
+                System.out.println("in " + node.accept(miniJava,0));
+                num_errors ++;
                 return "*void";
+                
             }
         }
 
@@ -313,10 +352,30 @@ public class TypeCheckingVisitor implements Visitor {
     }
 
     public Object visit(IdentifierType node, Object data){
-        // not in miniJava
+        String location = (String) data;
+        
         String s=node.s;
+        String result = st.typeName.get(location+"$"+s);
 
-        return data; 
+
+    
+        if(result == null ){
+            
+            result =  st.typeName.get("$" + location.split("\\$")[1]+"$"+s);
+            
+            
+            if(result == null){
+                System.out.println("Identifier error: " + s + " does not exist");
+                System.out.println("in " + node.accept(miniJava,0));
+                num_errors ++;
+                
+                return "*void";
+            }
+        }
+
+       
+        
+        return result; 
     }
 
     public Object visit(If node, Object data){ 
@@ -328,7 +387,6 @@ public class TypeCheckingVisitor implements Visitor {
         node.s2.accept(this, data);
 
         if(((String)node.e.accept(this, data)) != "boolean"){
-
             System.out.println("Type error: " + node.e + " is not a boolean expression");
             System.out.println("in "+node.accept(miniJava,0));
             num_errors ++;
@@ -376,13 +434,6 @@ public class TypeCheckingVisitor implements Visitor {
 
         return data; 
     }
-
-
-
-
-
-
-
 
 
     public Object visit(MethodDecl node, Object data){ 
@@ -460,10 +511,9 @@ public class TypeCheckingVisitor implements Visitor {
     public Object visit(NewObject node, Object data){ 
         // not in miniJava
         Identifier i=node.i;
-        node.i.accept(this, data);
 
         if (st.classes.get("$" + i.s) == null) {
-            System.out.println("Type error: " + "$" + i.s + " does not exist in node"+node);
+            System.out.println("Type error: " + "$" + i.s + " does not exist in node "+node);
             System.out.println("in "+node.accept(miniJava,0));
             num_errors++;
 
@@ -622,7 +672,6 @@ public class TypeCheckingVisitor implements Visitor {
         node.s.accept(this, data);
 
         if(((String) node.e.accept(this, data)) != "boolean"){
-
             System.out.println("Type error: " + node.e + " is not a boolean expression");
             System.out.println("in "+node.accept(miniJava,0));
             num_errors ++;

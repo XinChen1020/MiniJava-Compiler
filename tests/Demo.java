@@ -37,7 +37,7 @@ class PrintList{
         return z;
     }
 
-    public int go(int n, boolean b, Debug d){
+    public int go(int n){
         int r;
         boolean oldVal;
         int size;
